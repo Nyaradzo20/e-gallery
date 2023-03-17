@@ -1,8 +1,10 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
-#from werkzeug import secure_filename
+from flask import Flask, render_template, request, redirect, url_for,session
+from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
+import MySQLdb.cursors
+import re
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -14,16 +16,18 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Users(db.Model):
-    email = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(80), unique=True, nullable=False)
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
-    age = db.Column(db.Integer)
+    username = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), unique=True, nullable=False)
+    dateOfBirth = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True),
                            server_default=func.now())
-    bio = db.Column(db.Text)
 
     def __repr__(self):
-        return f'<Student {self.firstname}>'
+        return f'<Users {self.firstname}>'
 
 
 @app.route('/')
@@ -35,12 +39,34 @@ def first_page():
     """
     return render_template('index.html')
 
-@app.route('/signup')
-def signUP ():
-    """
-    this is the sign up page for new users.
-    """
-    return render_template('sign_up.html')
+@app.route('/register', methods =['GET', 'POST'])
+def register():
+    msg = ''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form and 'firstname' in request.form and 'lastname' in request.form and 'dateOfBirth' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        dateOfBirth = request.form['dateOfBirth']
+        cursor = db.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM accounts WHERE username = % s', (username, ))
+        account = cursor.fetchone()
+        if account:
+            msg = 'Account already exists !'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address !'
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            msg = 'Username must contain only characters and numbers !'
+        elif not username or not password or not email:
+            msg = 'Please fill out the form !'
+        else:
+            cursor.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s)', (username, password, email, ))
+            db.connection.commit()
+            msg = 'You have successfully registered !'
+    elif request.method == 'POST':
+        msg = 'Please fill out the form !'
+    return render_template('register.html', msg = msg)
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
