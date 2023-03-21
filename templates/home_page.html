@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -14,6 +15,18 @@
         <input type="file" name="file" />
         <input type="submit" />
     </form>
+    </br></br></br></br></br>
+    <div align="center">
+          <div align="center" class="border">
+             <div class="header">
+                <h1 class="word">Index</h1>
+             </div></br></br></br>
+                <h1 class="bottom">
+                     Hi {{session.username}}!!</br></br> Welcome to the index page...                
+                </h1></br></br></br>
+                <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+          </div>
+    </div>
 </body>
 
 </html>
