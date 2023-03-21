@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/CSS/main.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+         <p>E-GALLERY</p>   
+        </div>
+        <ul>
+            <li><a href="index.html"  class="active">HOME</a></li>
+            <li><a href="register.html">REGISTER</a></li>
+            <li> <a href="sign_in.html">LOGIN</a></li>
+            <li><a href="#">ABOUT US</a></li>
+        </ul>
+    </nav>
+<br>
+
+<div class="container">
+    <span class="first">MAKE </span>
+    <span class="second" </span>
+
+</div>
+
+    <div class="pic">
+        <img  class="snap" src="https://cdn.pixabay.com/photo/2013/02/21/19/06/drink-84533__340.jpg">
+        <img class="snap" src="https://cdn.pixabay.com/photo/2016/11/08/05/08/adult-1807500__340.jpg">
+        <img  class="snap" src="https://cdn.pixabay.com/photo/2022/07/19/10/35/puppies-7331739__340.jpg" alt="two brown puppies">
+    </div>
+    
+    <div class="pic">
+        <img  class="snap" src="https://cdn.pixabay.com/photo/2020/08/31/09/33/beach-5531919__340.jpg">
+        <img class="snap" src="https://cdn.pixabay.com/photo/2016/11/08/05/08/adult-1807500__340.jpg">
+        <img  class="snap" src="https://cdn.pixabay.com/photo/2022/07/19/10/35/puppies-7331739__340.jpg" alt="two brown puppies">
+    </div>
+
+    <script>
+        const text = document.querySelector(".second");
+        const textLoad = () =>{
+            setTimeout(() => {
+                text.textContent = "MOMENTS LAST FOREVER"
+            }
+            ,0);
+        
+            setTimeout(() => {
+                text.textContent = "THEM BEAUTIFUL"
+            }
+            ,4000);
+            
+            setTimeout(() => {
+                text.textContent = "THEM MEMORABLE"
+            }
+            ,8000);
+        }
+
+        textLoad();
+        setInterval(textLoad, 12000)
+        
+    </script>
+</body >
+</html>
