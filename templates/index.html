@@ -1,40 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-gallery</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/main.css') }}">
+    <link rel="stylesheet" href="/static/CSS/main.css">
+    <title>Document</title>
 </head>
-
 <body>
-        <header id="page-header">
-            <img src="/templates/images/Linear logo of the photographer. camera shutter logo.png" class="logo"/>
-          </header>
-    
-    <div>
-        <nav>
-            <ul>
-                <li><a href="/templates/home_page.html">HOME</a></li>
-                <li><a href="/templates/sign_in.html">SIGN IN</a></li>
-                <li><a href="/templates/sign_up.html">SIGN UP</a></li>
-            </ul>
-        </nav>        <video src="<video autoplay muted loop id="myVideo">
-
+    <div class="container">
+        <div class="navbar">
+            <img src="images/Linear logo of the photographer. camera shutter logo.png" alt="logo" class="logo">
+            <nav>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="register.html">REGISTER</a></li>
+                    <li><a href="sign_in.html">LOGIN</a></li>
+                    <li><a href="#">ABOUT US</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col">
+            <h1 class="first">MAKE MEMORIES </h1>
+            <h1 class="second"></h1> 
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem odio quod soluta delectus similique sed odit, quia assumenda vitae ullam sit, nobis aspernatur necessitatibus expedita quibusdam facilis harum aliquam ad?</p>
+        <button type="button">EXPLORE</button>
+        </div>
+        <div class="col">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+        </div>
     </div>
-    <hr>
-    <div>
-        <video autoplay muted loop id="myVideo">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-improvised-photoshoot-between-friends-in-a-coffee-shop-41847-large.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
-    </div>
-    <div>
+    <script>
+        const text = document.querySelector(".second");
+        const textLoad = () =>{
+            setTimeout(() => {
+                text.textContent = "ineffeable" 
+            }
+            ,8000);
+        
+            setTimeout(() => {
+                text.textContent = "timeless"
+            }
+            ,4000);
+            
+            setTimeout(() => {
+                text.textContent = "MEMORABLE"
+            }
+            ,0);
+        }
 
-    </div>
-
+        textLoad();
+        setInterval(textLoad, 12000)
+        
+    </script>
 </body>
-
 </html>
