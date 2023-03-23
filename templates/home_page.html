@@ -10,20 +10,20 @@
 </head>
 
 <body>
-    <h2>welcome to your home page</h2>
-    <form action="http://localhost:5000/new/homepage" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" />
-        <input type="submit" />
-    </form>
     </br></br></br></br></br>
     <div align="center">
           <div align="center" class="border">
              <div class="header">
-                <h1 class="word">Index</h1>
-             </div></br></br></br>
+                <h1 class="word">welcome</h1>
+             </div></br></br>
                 <h1 class="bottom">
-                     Hi {{session.username}}!!</br></br> Welcome to the index page...                
-                </h1></br></br></br>
+                     Hi {{session.firstname}}!!</br><h2>welcome to your home page</h2>              
+                </h1></br></br>
+                <form action="{{ url_for('uploads') }}" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" /></br></br>
+                    <input id="bio" name="bio" type="text" placeholder="Tell us about the photo" class="bio"/></br></br>
+                    <input type="submit" />
+                </form></br></br></br></br></br></br>
                 <a href="{{ url_for('logout') }}" class="btn">Logout</a>
           </div>
     </div>
