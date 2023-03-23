@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
+from werkzeug.utils import secure_filename
 import MySQLdb.cursors
 import re
+import os
 
 app = Flask(__name__)
 
@@ -13,6 +15,7 @@ app.config['MYSQL_PASSWORD'] = 'Katman?1997'
 app.config['MYSQL_DB'] = 'Users'
 
 mysql = MySQL(app)
+
 
 @app.route('/')
 def  homePage():
@@ -68,9 +71,10 @@ def login():
             session['id'] = user['id']
             session['email'] = user['email']
             msg = 'logged in successfully !'
+            login.email = request.form['email']
             return render_template('home_page.html', msg = msg)
         else:
-            msg = 'Incorrect email / password !, please try again'
+            msg = 'Incorrect email / password, please try again !'
     return render_template('sign_in.html', msg = msg)
 
 @app.route('/logout')
@@ -79,6 +83,36 @@ def logout():
     session.pop('id', None)
     session.pop('email', None)
     return redirect(url_for('login'))
+
+
+  
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/uploads', methods=['POST'])
+def uploads ():
+    msg = ''
+    if 'file' not in request.form and 'bio' not in request.form:
+        msg = 'please select an image file and write your bio !'
+    file = request.files['file']
+    bio = request.form['bio']
+    if file.filename == '':
+        msg = 'No file selected to upload'
+    if bio == '':
+        msg = 'please write the bio !'
+    if file and allowed_file(file.filename):
+        photo = secure_filename(file.filename)
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('INSERT INTO userData VALUES(NULL, %s, %s, %s)', (login.email, photo, bio))
+        mysql.connection.commit()
+        msg = 'you have successful added a memory!'
+        return render_template('home_page.html', msg = msg)
+    else:
+        msg = "Allowed image types are - png, jpg, jpeg, gif"
+    return redirect(request.url, msg = msg)
+
 
 
 if __name__ == "__main__":
