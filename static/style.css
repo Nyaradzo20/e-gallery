@@ -15,13 +15,27 @@
     background-size: cover;
 
 }
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: url("https://images.pexels.com/photos/5638701/pexels-photo-5638701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 .form-box{
     position: relative;
     width: 400px;
     height: 450px;
-    border: 1px solid #236B8E;
-    border-radius: 0px;
-    background-color: #9AC0CD;
+    background: transparent;
+    border: 2px solid #ffffff80;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .form-box1{
     position: relative;
@@ -36,43 +50,91 @@
     align-items: center;
 }
 
-.btn {
-    padding: 10px 40px;
-    background-color: #236B8E;
-    color: #FFFFFF;
-    font-style: oblique;
-    font-weight: bold;
-    border-radius: 10px;
+h2{
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+.inputbox{
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #fff;
+}
+.inputbox label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1em;
+    pointer-events: none;
+    transition: .5s;
+}
+input:focus ~ label,
+input:valid ~ label{
+top: -5px;
+}
+.inputbox input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+    color: #fff;
+}
+.inputbox ion-icon{
+    position: absolute;
+    right: 8px;
+    color: #fff;
+    font-size: 1.2em;
+    top: 20px;
+}
+.forget{
+    margin: -15px 0 15px ;
+    font-size: .9em;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;  
 }
 
-.textbox {
-    padding: 10px 40px;
-    background-color: #236B8E;
-    text-color: #FFFFFF;
-    border-radius: 10px;
+.forget label input{
+    margin-right: 3px;
+    
 }
-
-::placeholder {
-    color: #FFFFFF;
-    opacity: 1;
-    font-style: oblique;
-    font-weight: bold;
+.forget label a{
+    color: red;
+    text-decoration: none;
+    font-weight: 700;
+}
+.forget label a:hover{
+    text-decoration: underline;
+}
+button{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #1b74e4;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+}
+.register{
+    font-size: .9em;
+    color: #ffffff8f;
+    text-align: center;
+    margin: 25px 0 10px;
 }
 .register p a{
     text-decoration: none;
     color: #fff;
     font-weight: 600;
 }
-
-.bottom {
-    color: #236B8E;
-    font-style: oblique;
-    font-weight: bold;
-}
-
-.bio {
-    padding: 70px 80px;
-    background-color: #f51111;
-    border-radius: 10px;
-    border-inline-start: 5px;
+.register p a:hover{
+    text-decoration: underline;
 }
