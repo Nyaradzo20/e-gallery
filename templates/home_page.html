@@ -5,20 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>user page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
+    </br></br></br></br>
+    <div align="center">
+        <div align="center" class="border">
+            <div class="header">
+                <h1 class="word"> welcome to your page</h1>
+            </div>
+            <form action="{{ url_for('display')}}" method="POST" enctype="multipart/form-data">
+                <p>ID: {{photo}}</p></br></br>
+                <p>ID: {{bio }}</p>
+        </div>
+    </div>
     </br></br></br></br></br>
     <div align="center">
           <div align="center" class="border">
              <div class="header">
-                <h1 class="word">welcome</h1>
+                <h1 class="word">create new memory</h1>
              </div></br></br>
-                <h1 class="bottom">
-                     Hi {{session.firstname}}!!</br><h2>welcome to your home page</h2>              
-                </h1></br></br>
                 <form action="{{ url_for('uploads') }}" method="POST" enctype="multipart/form-data">
                     <input type="file" name="file" /></br></br>
                     <input id="bio" name="bio" type="text" placeholder="Tell us about the photo" class="bio"/></br></br>
@@ -27,6 +35,7 @@
                 <a href="{{ url_for('logout') }}" class="btn">Logout</a>
           </div>
     </div>
+    
 </body>
 
 </html>
