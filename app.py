@@ -53,7 +53,7 @@ def register():
             mysql.connection.commit()
             msg =  'you have successfully registered'
     elif request.method == 'POST':
-        msg = 'please fill out the form 2!'
+        msg = 'please fill out the form!'
     return render_template('register.html', msg = msg)
 
 @app.route('/login', methods = ['GET', 'POST'])
