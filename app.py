@@ -90,6 +90,16 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/dispay')
+def display():
+    email = login.email
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM userData WHERE email = %s', email)
+    data = cursor.fetchall() #{[id:1], [email: admin@example.com],[photo:palace.jpg],[bio: xxxxxxxxx]}
+    photo = data.photo
+    bio = data.bio 
+    return render_template('home_page.html', photo = photo, bio = bio)
+
 
 @app.route('/uploads', methods=['POST'])
 def uploads ():
@@ -113,7 +123,7 @@ def uploads ():
         msg = "Allowed image types are - png, jpg, jpeg, gif"
     return redirect(request.url, msg = msg)
 
-
-
+    
+    
 if __name__ == "__main__":
     app.run(debug=True)
