@@ -14,48 +14,49 @@
     <section class="reg">
         <div class="form-box1">
             <div class="form-value">
-                <form action="">
-                    <h2>Register</h2>
-                    <br>
+                <form action="{{ url_for('register') }}" method="post">
+                    <div class="msg">{{ msg }}</div>
+                        <h2>Register</h2>
+                        <br>
 
-                    <div class="inputbox">
-                      <ion-icon name="person-outline"></ion-icon>
-                      <input type="text" required>
-                      <label for="">Enter your name</label>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name=""></ion-icon>
-                    <input type="date" required>
-                    <label for="">Enter Your Age
-        
-                    </label>
-                  </div>
-                  <div class="inputbox">
-                        <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" required>
-                        <label for="">Email</label>
-                    </div>
-                    <div class="inputbox">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input type="password" required>
-                        <label for="">Password</label>
-                    </div>
-                    <div class="inputbox">
-                      <ion-icon name="lock-closed-outline"></ion-icon>
-                      <input type="password" required>
-                      <label for="">
-                       Re-Enter password
-                       </label>
-                    </div>
+                        <div class="inputbox">
+                          <ion-icon name="person-outline"></ion-icon>
+                          <input id="fullname" name="fullname" type="text" required>
+                          <label for="">Enter your fullname</label>
+                        </div>
+                        <div class="inputbox">
+                          <ion-icon name=""></ion-icon>
+                          <input id="dateOfBirth" name="dateOfBirth" type="date" required>
+                          <label for="">Enter Your Date of birth
+                          <br>
+                          </label>
+                        </div>
+                        <div class="inputbox">
+                            <ion-icon name="mail-outline"></ion-icon>
+                            <input id="email" name="email" type="email" required>
+                            <label for="">Email</label>
+                        </div>
+                        <div class="inputbox">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                            <input id="password" name="password" type="password" required>
+                            <label for="">Password</label>
+                        </div>
+                        <div class="inputbox">
+                          <ion-icon name="lock-closed-outline"></ion-icon>
+                          <input id="repassword" name="repassword" type="password" required>
+                          <label for="">
+                            Re-Enter password
+                          </label>
+                        </div>
                     
                     
-                    <button class="b1">Register</button>
-                    <div class="register1">
-                        <p>Have An Account?
-                            <span>|</span>
-                            <a href="{{'/login'}}">Login</a>
-                        </p>
-                    </div>
+                        <button class="b1">Register</button>
+                        <div class="register">
+                            <p>Have An Account?
+                                <span>|</span>
+                                <a href="{{'/login'}}">Login</a>
+                            </p>
+                        </div>
                 </form>
             </div>
         </div>
