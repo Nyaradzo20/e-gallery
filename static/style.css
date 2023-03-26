@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 120vh;
     width: 100%;
     background: url("https://images.pexels.com/photos/5638701/pexels-photo-5638701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")no-repeat;
     background-position: center;
@@ -138,3 +138,47 @@ button{
 .register p a:hover{
     text-decoration: underline;
 }
+.register1{
+        font-size: .9em;
+        color: #ffffff8f;
+        text-align: center;
+        
+        margin-top: 10px;
+
+}
+.register1 p a{
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+}
+.register1 p a:hover{
+    text-decoration: underline;}
+
+.b1{
+    margin-bottom: 60px;
+    
+
+}
+input[type=date]::-webkit-datetime-edit-text {
+    -webkit-appearance: none;
+    display: none;
+}
+input[type=date]::-webkit-datetime-edit-month-field{
+    -webkit-appearance: none;
+    display: none;
+}
+input[type=date]::-webkit-datetime-edit-day-field {
+    -webkit-appearance: none;
+    display: none;
+}
+input[type=date]::-webkit-datetime-edit-year-field {
+    -webkit-appearance: none;
+    display: none;
+}
+.page.pdf span.date-toggle { 
+
+    display: none; 
+    
+    }
+    
+     
