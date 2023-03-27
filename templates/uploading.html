@@ -14,13 +14,18 @@
             <div class="header">
                 <h1 class="word">create new memory</h1>
             </div>
-            <form action="{{ url_for('uploads') }}" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file" placeholder="upload file" />
-                <input id="bio" name="bio" type="text" placeholder="Tell us about the photo" class="bio" />
-                < <input type="submit" />
-            </form>
+            <div>
+                <form action="/uploads" method="POST" enctype="multipart/form-data">
+                    <div class="msg">{{ msg }}</div>
+                    <input type="file" id="file" name=" file " placeholder="select file " required><br><br>
+                </form>
+                <form action="/uploads" method="POST">
+                    <div class="msg">{{ msg }}</div>
+                    <input type=" text " id="bio " name="bio " placeholder="tell us about what happened on your this day " required><br><br>
+                    <button class="b3">submit</button>
+                </form>
+            </div>
         </div>
-    </div>
 </body>
 
 </html>

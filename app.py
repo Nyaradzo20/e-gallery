@@ -108,25 +108,27 @@ def allowed_file(filename):
 @app.route('/uploads', methods=['POST', 'GET'])
 def uploads ():
     msg = ''
-    if request.method == 'POST' and 'file' not in request.form and 'bio' not in request.form:
-        msg = 'please select an image file and write your bio !'
-    file = request.form['file']
-    bio = request.form['bio']
-    if file.filename == '':
-        msg = 'No file selected to upload'
-    if bio == '':
-        msg = 'please write the bio !'
-    if file and allowed_file(file.filename):
-        photo = secure_filename(file.filename)
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO userData VALUES(NULL, %s, %s, %s)', (login.email, photo, bio))
-        mysql.connection.commit()
-        msg = 'you have successful added a memory!'
-        return render_template('uploading.html', msg = msg)
-    else:
-        msg = "Allowed image types are - png, jpg, jpeg, gif"
-    return redirect(request.url, msg = msg)
-
+    if request.method == 'POST' and 'file' in request.files and 'bio' in request.form:
+        file = request.files['file']
+        bio = request.form['bio']
+        if file.filename == '':
+            msg = 'No file selected to upload'
+        if bio == '':
+            msg = 'please write the bio !'
+        if file and allowed_file(file.filename):
+            photo = secure_filename(file.filename)
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO userData VALUES(NULL, %s, %s, %s)', (login.email, photo, bio))
+            mysql.connection.commit()
+            msg = 'you have successful added a memory!'
+            return render_template('uploading.html', msg = msg)
+        else:
+            msg = "Allowed image types are - png, jpg, jpeg, gif"
+    elif request.method == 'POST':
+        msg = 'please select file to be uploaded and write the bio'
+    msg = 'you fucked'
+    return render_template('uploading.html')
+ 
     
     
 if __name__ == "__main__":
