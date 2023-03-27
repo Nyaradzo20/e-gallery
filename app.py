@@ -3,7 +3,6 @@ from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
 import MySQLdb.cursors
 import re
-import os
 
 app = Flask(__name__)
 
@@ -18,13 +17,24 @@ mysql = MySQL(app)
 
 
 @app.route('/')
-def  homePage():
+def  openingPage():
     """
     this page should include the sell out,
     its the page that tell our visitors about the app.
     and give the options to signin or signup.
     """
     return render_template('index.html')
+
+@app.route('/dispay')
+def display():
+    if 'loggedin' in session:
+        email = login.email
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT * FROM userData WHERE email = %s', email)
+        data = cursor.fetchall() #{[id:1], [email: admin@example.com],[photo:palace.jpg],[bio: xxxxxxxxx]}
+        return render_template('home_page.html', data = data)
+    return redirect(url_for('login'))
+
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -54,6 +64,7 @@ def register():
                 cursor.execute('INSERT INTO account VALUES (NULL, % s, % s, % s, % s)', (fullname, dateOfBirth, email, password))
                 mysql.connection.commit()
                 msg =  'you have successfully registered'
+                return render_template('home_page.html', msg = msg)
             else:
                 msg = 'The passwords does not match'
     elif request.method == 'POST':
@@ -75,7 +86,7 @@ def login():
             session['id'] = user['id']
             session['email'] = user['email']
             msg = 'logged in successfully !'
-            login.email = request.form['email']
+            login.email = user['email']
             return render_template('home_page.html', msg = msg)
         else:
             msg = 'Incorrect email / password, please try again !'
@@ -94,23 +105,12 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/dispay')
-def display():
-    email = login.email
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM userData WHERE email = %s', email)
-    data = cursor.fetchall() #{[id:1], [email: admin@example.com],[photo:palace.jpg],[bio: xxxxxxxxx]}
-    photo = data.photo
-    bio = data.bio 
-    return render_template('home_page.html', photo = photo, bio = bio)
-
-
-@app.route('/uploads', methods=['POST'])
+@app.route('/uploads', methods=['POST', 'GET'])
 def uploads ():
     msg = ''
-    if 'file' not in request.form and 'bio' not in request.form:
+    if request.method == 'POST' and 'file' not in request.form and 'bio' not in request.form:
         msg = 'please select an image file and write your bio !'
-    file = request.files['file']
+    file = request.form['file']
     bio = request.form['bio']
     if file.filename == '':
         msg = 'No file selected to upload'
@@ -122,7 +122,7 @@ def uploads ():
         cursor.execute('INSERT INTO userData VALUES(NULL, %s, %s, %s)', (login.email, photo, bio))
         mysql.connection.commit()
         msg = 'you have successful added a memory!'
-        return render_template('home_page.html', msg = msg)
+        return render_template('uploading.html', msg = msg)
     else:
         msg = "Allowed image types are - png, jpg, jpeg, gif"
     return redirect(request.url, msg = msg)

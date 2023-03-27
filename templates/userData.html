@@ -1,0 +1,43 @@
+<html lang="en">
+    <head>
+        <title>display</title>
+    </head>
+    <body bgcolor="#e6ffee">
+        <div class="one">
+          <div class="data">{{ data }}</div>
+            <div class="two">
+                <h1>Side Bar</h1>
+                <ul>
+                    <li><a href="{{url_for('login')}}">Index</a></li>
+                    <li class="active"><a href="{{url_for('display')}}">Display</a></li>
+                    <li><a href="{{url_for('uploads')}}">Update</a></li>
+                    <li><a href="{{url_for('logout')}}">Log out</a></li>
+                </ul>
+            </div>
+            <div class="content" align="center">
+                <div class="topbar">
+                    <h2>Welcome!! You are in Display Page!! </h2>                       
+                </div>  </br>
+                <div class="contentbar">
+                    <h1>Your Details</h1>    </br>
+                     {% block content %}
+                        <div class="border">
+                            <table class="worddark"></br></br></br></br>
+                                <tr>
+                                    <td>photo:</td>
+                                    <td>{{ data['photo'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>bio:</td>
+                                    <td>{{ data['bio'] }}</td>
+                                </tr>
+                                                    
+                            </table>
+                        </div>
+                    {% endblock %}                                          
+                </div>
+                 
+            </div>
+        </div>
+    </body>
+</html>
