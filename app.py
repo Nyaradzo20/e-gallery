@@ -108,7 +108,7 @@ def allowed_file(filename):
 @app.route('/uploads', methods=['POST', 'GET'])
 def uploads ():
     msg = ''
-    if request.method == 'POST' and 'file' in request.files and 'bio' in request.form:
+    if request.method == 'POST':
         file = request.files['file']
         bio = request.form['bio']
         if file.filename == '':
@@ -126,8 +126,8 @@ def uploads ():
             msg = "Allowed image types are - png, jpg, jpeg, gif"
     elif request.method == 'POST':
         msg = 'please select file to be uploaded and write the bio'
-    msg = 'you fucked'
-    return render_template('uploading.html')
+    msg = 'please select the file and write the bio'
+    return render_template('uploading.html', msg = msg)
  
     
     
