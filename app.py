@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
+import base64
 import MySQLdb.cursors
 import re
 
@@ -27,12 +28,16 @@ def  openingPage():
 
 @app.route('/dispay')
 def display():
+    msg = ''
     if 'loggedin' in session:
         email = login.email
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM userData WHERE email = %s', email)
+        cursor.execute('SELECT * FROM userData WHERE email = %s', (email))
         data = cursor.fetchall() #{[id:1], [email: admin@example.com],[photo:palace.jpg],[bio: xxxxxxxxx]}
-        return render_template('home_page.html', data = data)
+        for row in data:
+            bio = row[3]
+            image = (row[2])
+            return render_template('home_page.html', image = image, bio = bio)
     return redirect(url_for('login'))
 
 
@@ -64,7 +69,7 @@ def register():
                 cursor.execute('INSERT INTO account VALUES (NULL, % s, % s, % s, % s)', (fullname, dateOfBirth, email, password))
                 mysql.connection.commit()
                 msg =  'you have successfully registered'
-                return render_template('home_page.html', msg = msg)
+                return redirect(url_for('display'))
             else:
                 msg = 'The passwords does not match'
     elif request.method == 'POST':
@@ -87,7 +92,7 @@ def login():
             session['email'] = user['email']
             msg = 'logged in successfully !'
             login.email = user['email']
-            return render_template('home_page.html', msg = msg)
+            return redirect(url_for('display'))
         else:
             msg = 'Incorrect email / password, please try again !'
     return render_template('sign_in.html', msg = msg)
