@@ -14,13 +14,16 @@
         <div class="form-box1">
             <div class="form-value">
                 <form action="{{url_for('uploads')}}" method="post" enctype="multipart/form-data">
-                    <div class="msg ">{{ msg }}</div>
-                    <h2> record new memories </h2>
+                    <div class="msg ">            
+                            <h1><span class="auto-type"></span></h1>
+                    </div>
+                
                     <div>
-                        <input id="file" name="file" type="file" placeholder="upload file">
+                        <input id="file" name="file" type="file" placeholder="upload file" accept="image/jpeg, image/png, image/jpg">
+                        <output></output>
                     </div><br><br><br><br>
                     <div>
-                        <textarea rows = "10" cols = "30" name = "bio" placeholder="write bio"></textarea>    
+                        <textarea rows = "5" cols = "30" name = "bio" placeholder="Add Note" style="background-color: transparent; color: darkkhaki;"></textarea>    
                     </div><br><br>
                     <button class=" b3 ">submit</button>
                 </form>
@@ -28,6 +31,43 @@
             </div>
         </div>
     </section>
+    <script src="https://unpkg.com/typed.js@2.0.132/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed(".auto-type", {
+            strings:["ADD MEMORIES ",],
+            typeSpeed:150,
+            backSpeed:150,
+            loop:true
+
+        })
+        const input = document.querySelector("input")
+        const output = document.querySelector("output")
+        let imagesArray = []
+        
+        input.addEventListener("change", function() {
+            const file = input.files
+            imagesArray.push(file[0])
+            displayImages()
+        })
+        function displayImages() {
+  let images = ""
+  imagesArray.forEach((image, index) => {
+    images += `<div class="image">
+                <img src="${URL.createObjectURL(image)}" alt="image">
+                <span onclick="deleteImage(${index})">&times;</span>
+              </div>`
+  })
+  output.innerHTML = images
+}
+
+    
+function deleteImage(index) {
+  imagesArray.splice(index, 1)
+  displayImages()
+}
+
+
+    </script>
 </body>
 
 </html>
