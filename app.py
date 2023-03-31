@@ -37,7 +37,7 @@ def display():
         for row in data:
             bio = row[3]
             image = (row[2])
-            return render_template('home_page.html', image = image, bio = bio)
+            return render_template('uploading.html', image = image, bio = bio)
     return redirect(url_for('login'))
 
 
@@ -92,7 +92,7 @@ def login():
             session['email'] = user['email']
             msg = 'logged in successfully !'
             login.email = user['email']
-            return redirect(url_for('display'))
+            return redirect(url_for('uploads'))
         else:
             msg = 'Incorrect email / password, please try again !'
     return render_template('sign_in.html', msg = msg)
@@ -126,13 +126,13 @@ def uploads ():
             cursor.execute('INSERT INTO userData VALUES(NULL, %s, %s, %s)', (login.email, photo, bio))
             mysql.connection.commit()
             msg = 'you have successful added a memory!'
-            return render_template('uploading.html', msg = msg)
+            return render_template('profille.html', msg = msg)
         else:
             msg = "Allowed image types are - png, jpg, jpeg, gif"
     elif request.method == 'POST':
         msg = 'please select file to be uploaded and write the bio'
     msg = 'please select the file and write the bio'
-    return render_template('uploading.html', msg = msg)
+    return render_template('profille.html', msg = msg)
  
     
     
