@@ -126,13 +126,13 @@ def uploads ():
             cursor.execute('INSERT INTO userData VALUES(NULL, %s, %s, %s)', (login.email, photo, bio))
             mysql.connection.commit()
             msg = 'you have successful added a memory!'
-            return render_template('profille.html', msg = msg)
+            return render_template('profile.html', msg = msg)
         else:
             msg = "Allowed image types are - png, jpg, jpeg, gif"
     elif request.method == 'POST':
         msg = 'please select file to be uploaded and write the bio'
     msg = 'please select the file and write the bio'
-    return render_template('profille.html', msg = msg)
+    return render_template('profile.html', msg = msg)
  
     
     
